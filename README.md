@@ -1,0 +1,5 @@
+Screenshot hasil setelah execution pertama : 
+![Result Execution](resources/ExecutionResult.png)
+
+Explanation : 
+Setelah kita menjalankan program tersebut, kita dapat melihat bahwa "Jovian's Computer : hey hey" di print duluan sebelum yang lain karena berhubungan dengan konsep cara kerja asynchronous programming di Rust (lazy) dan cara kerja fungsi spawner.spawn yang tidak langsung mengeksekusi kode dalam blok async. Saat spawner.spawn dipanggil, fungsi tersebut hanya bertugas untuk membungkus blok async menjadi sebuah Task dan memasukannya ke dalam ready queue. Setelah tugas berhasil dimasukkan, fungsi spawn akan langsung selesai tanpa menunggu kode di dalamnya berjalan. Karena proses pengirimannya juga non blocking, main thread langsung menjalankan kode berikutnya secara berurutan sehingga 'Jovian's Computer : hey hey' dapat tercetak. Kode dalam blok async baru benar-benar jalan ketika fungsi executor.run() dipanggil.
